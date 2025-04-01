@@ -1,0 +1,51 @@
+/* Base Styles */
+:root {
+    --primary-blue: #1e88e5;
+    --dark-blue: #0d47a1;
+    --light-blue: #bbdefb;
+  }
+  
+  .login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .scamdefender-btn {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+  
+  .scamdefender-btn:hover {
+    background: var(--dark-blue);
+  }
+  /* Social Buttons */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  
+  .google-btn {
+    background: #db4437;
+    color: white;
+  }
+  
+  .facebook-btn {
+    background: #4267b2;
+    color: white;
+  }
+  
+  .google-btn:hover, .facebook-btn:hover {
+    opacity: 0.9;
+  }
