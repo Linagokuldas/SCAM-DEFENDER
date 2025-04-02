@@ -52,7 +52,7 @@
   }
   
   .scanner-nav button.active {
-    background: white;
+    background: rgb(8, 126, 195);
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }

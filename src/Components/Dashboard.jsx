@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import UrlScanner from './UrlScanner';
 import FileScanner from './FileScanner';
 import PhoneScanner from './PhoneScanner';
-import './dashboard.css';
+import './Dashboard.css';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('url');

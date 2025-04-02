@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
-import InputField from './Components/InputField';
-import Button from './Components/Button';
+import InputField from './InputField';
+import Button from './Button';
 import './theme.css';
 
 export default function Login() {

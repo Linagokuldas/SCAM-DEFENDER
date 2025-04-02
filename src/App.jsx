@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './Login';
-import Dashboard from './Dashboard';
+import Login from './Components/Login';
+import Dashboard from './Components/Dashboard';
 
 export default function App() {
   return (

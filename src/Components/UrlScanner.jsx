@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from './Button';
-import './dashboard.css';
+import './Dashboard.css';
 
 export default function UrlScanner() {
   const [url, setUrl] = useState('');

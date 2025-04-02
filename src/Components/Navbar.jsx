@@ -1,5 +1,5 @@
 import React from 'react';
-import './dashboard.css';
+import './Dashboard.css';
 
 export default function Navbar({ activeTab, setActiveTab }) {
   return (

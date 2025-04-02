@@ -1,5 +1,5 @@
 import React from 'react';
-import './dashboard.css';
+import './Dashboard';
 
 export default function Header() {
   return (
