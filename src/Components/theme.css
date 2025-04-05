@@ -2,7 +2,7 @@
 :root {
     --primary-blue: #1e88e5;
     --dark-blue: #0d47a1;
-    --light-blue: #bbdefb;
+    --light-blue: #033259;
   }
   
   .login-container {
@@ -53,7 +53,7 @@
 
 /* Blue Theme Color Variables */
 :root {
-  --primary-blue: #1a73e8;
+  --primary-blue: #058ec9;
   --dark-blue: #0d47a1;
   --light-blue: #e8f0fe;
   --white: #ffffff;
@@ -66,7 +66,7 @@
 
 /* Base Styles */
 body {
-  background-color: var(--light-blue);
+  background-color: dark rgb(50, 50, 193);
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -256,3 +256,25 @@ body {
     padding: 1rem;
   }
 }
+/* theme.css */
+.login-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Add any additional global styles here */

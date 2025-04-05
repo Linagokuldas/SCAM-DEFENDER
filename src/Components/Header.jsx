@@ -5,10 +5,10 @@ export default function Header() {
   return (
     <header className="dashboard-header">
       <div className="header-content">
-        <h1>ScamDefender</h1>
+        <h1>SHIELDX</h1>
         <div className="user-profile">
-          <span>Welcome, User</span>
-          <div className="avatar">U</div>
+          <span></span>
+          <div className="avatar"> X </div>
         </div>
       </div>
     </header>
