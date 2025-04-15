@@ -8,14 +8,20 @@ import logo from './shieldx-logo.png';
 
 export default function Login() {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: ''
   });
   const [errors, setErrors] = useState({
+    username: '',
     email: '',
     password: ''
   });
   const navigate = useNavigate();
+
+  const validateUsername = (username) => {
+    return username.length >= 3;
+  };
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,6 +45,10 @@ export default function Login() {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     
+    if (name === 'username' && value && !validateUsername(value)) {
+      setErrors(prev => ({...prev, username: 'Username must be at least 3 characters'}));
+    }
+    
     if (name === 'email' && value && !validateEmail(value)) {
       setErrors(prev => ({...prev, email: 'Invalid email format'}));
     }
@@ -53,13 +63,14 @@ export default function Login() {
     
     // Validate all fields
     const validationErrors = {
+      username: !formData.username ? 'Username is required' : !validateUsername(formData.username) ? 'Username must be at least 3 characters' : '',
       email: !formData.email ? 'Email is required' : !validateEmail(formData.email) ? 'Invalid email format' : '',
       password: !formData.password ? 'Password is required' : !validatePassword(formData.password) ? 'Password must be at least 8 characters' : ''
     };
     
     setErrors(validationErrors);
     
-    if (!validationErrors.email && !validationErrors.password) {
+    if (!validationErrors.username && !validationErrors.email && !validationErrors.password) {
       navigate('/dashboard');
     }
   };
@@ -73,6 +84,23 @@ export default function Login() {
       </div>
       
       <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label htmlFor="username" style={styles.label}>Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            value={formData.username}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={{
+              ...styles.input,
+              borderColor: errors.username ? '#ff4444' : '#ddd'
+            }}
+          />
+          {errors.username && <span style={styles.error}>{errors.username}</span>}
+        </div>
+
         <div style={styles.inputGroup}>
           <label htmlFor="email" style={styles.label}>Email</label>
           <input
@@ -111,8 +139,8 @@ export default function Login() {
           type="submit" 
           style={{
             ...styles.button,
-            opacity: (!formData.email || !formData.password || errors.email || errors.password) ? 0.7 : 1,
-            cursor: (!formData.email || !formData.password || errors.email || errors.password) ? 'not-allowed' : 'pointer'
+            opacity: (!formData.username || !formData.email || !formData.password || errors.username || errors.email || errors.password) ? 0.7 : 1,
+            cursor: (!formData.username || !formData.email || !formData.password || errors.username || errors.email || errors.password) ? 'not-allowed' : 'pointer'
           }}
         >
           Login
@@ -193,5 +221,5 @@ const styles = {
     border: 'none',
     fontSize: '1rem',
     marginTop: '10px',
-  }
+  }  
 };

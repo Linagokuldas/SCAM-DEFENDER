@@ -17,11 +17,17 @@ export default function Navbar({ activeTab, setActiveTab }) {
         File Scanner
       </button>
       <button
-        className={activeTab === 'phone' ? 'active' : ''}
-        onClick={() => setActiveTab('phone')}
+        className={activeTab === 'email' ? 'active' : ''}
+        onClick={() => setActiveTab('email')}
       >
-        Phone Check
+        Email Scam detect 
       </button>
+      <button
+        className={activeTab === 'message' ? 'active' : ''}
+        onClick={() => setActiveTab('message')}
+       >
+        Message Scanner
+       </button>
     </nav>
   );
 }

@@ -3,7 +3,8 @@ import Header from './Header';
 import Navbar from './Navbar';
 import UrlScanner from './UrlScanner';
 import FileScanner from './FileScanner';
-import PhoneScanner from './PhoneScanner';
+import EmailScanner  from './EmailScanner';
+import MessageScanner from './MessageScanner';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -15,7 +16,8 @@ export default function Dashboard() {
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
       {activeTab === 'url' && <UrlScanner />}
       {activeTab === 'file' && <FileScanner />}
-      {activeTab === 'phone' && <PhoneScanner />}
+      {activeTab === 'email' && <EmailScanner />}
+      {activeTab === 'message' && <MessageScanner />}
     </div>
   );
 }

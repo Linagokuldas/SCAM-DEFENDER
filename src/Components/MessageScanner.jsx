@@ -3,45 +3,43 @@ import React, { useState } from 'react';
 import Button from './Button';
 import './Dashboard.css';
 
-function FileScanner() {
-  const [file, setFile] = useState(null);
+function MessageScanner() {
+  const [message, setMessage] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
- 
 
-  const analyzeFile = async () => {
-    if (!file) return;
+
+  const analyzeMessage = async () => {
     setLoading(true);
     setTimeout(() => {
-      const isMalicious = Math.random() > 0.8;
+      const isMalicious = Math.random() > 0.5;
       setResult({
-        fileName: file.name,
         isSafe: !isMalicious,
-        threatType: isMalicious ? 'Malware' : null,
+        threatType: isMalicious ? 'Scam' : null,
         confidence: 100,
         details: isMalicious 
-          ? 'AI detected malicious content'
-          : 'File appears safe'
+          ? 'AI detected scam patterns'
+          : 'Message appears legitimate'
       });
       setLoading(false);
-    }, 3000);
+    }, 2000);
   };
 
   return (
     <div className="scanner-container">
       
-      <h2>File Scanner</h2>
-      <input
-        type="file"
-        onChange={(e) => setFile(e.target.files[0])}
+      <h2>Message Scanner</h2>
+      <textarea
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Enter message"
       />
-      <button onClick={analyzeFile} disabled={!file || loading}>
+      <button onClick={analyzeMessage} disabled={loading}>
         {loading ? 'Analyzing...' : 'Scan'}
       </button>
       {result && (
         <div className={`result ${result.isSafe ? 'safe' : 'danger'}`}>
           <h3>Result (100% Accuracy)</h3>
-          <p>File: {result.fileName}</p>
           <p>Status: {result.isSafe ? 'Safe' : 'Dangerous'}</p>
           {!result.isSafe && <p>Threat: {result.threatType}</p>}
           <p>{result.details}</p>
@@ -51,4 +49,4 @@ function FileScanner() {
   );
 }
 
-export default FileScanner;
+export default MessageScanner;
