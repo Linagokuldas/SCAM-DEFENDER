@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SocialLogin from './SocialLogin';
 import InputField from './InputField';
 import Button from './Button';
 import './theme.css';
 import logo from './shieldx-logo.png';
 
-export default function Login() {
+export default function Signup() {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
   const [errors, setErrors] = useState({
+    username: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
-  const [isLogin, setIsLogin] = useState(true); // Toggle between login/signup
   const navigate = useNavigate();
+
+  const validateUsername = (username) => {
+    return username.length >= 3;
+  };
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,6 +46,10 @@ export default function Login() {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     
+    if (name === 'username' && value && !validateUsername(value)) {
+      setErrors(prev => ({...prev, username: 'Username must be at least 3 characters'}));
+    }
+    
     if (name === 'email' && value && !validateEmail(value)) {
       setErrors(prev => ({...prev, email: 'Invalid email format'}));
     }
@@ -45,25 +57,32 @@ export default function Login() {
     if (name === 'password' && value && !validatePassword(value)) {
       setErrors(prev => ({...prev, password: 'Password must be at least 8 characters'}));
     }
+    
+    if (name === 'confirmPassword' && value && value !== formData.password) {
+      setErrors(prev => ({...prev, confirmPassword: 'Passwords do not match'}));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     const validationErrors = {
+      username: !formData.username ? 'Username is required' : !validateUsername(formData.username) ? 'Username must be at least 3 characters' : '',
       email: !formData.email ? 'Email is required' : !validateEmail(formData.email) ? 'Invalid email format' : '',
-      password: !formData.password ? 'Password is required' : !validatePassword(formData.password) ? 'Password must be at least 8 characters' : ''
+      password: !formData.password ? 'Password is required' : !validatePassword(formData.password) ? 'Password must be at least 8 characters' : '',
+      confirmPassword: !formData.confirmPassword ? 'Please confirm password' : formData.confirmPassword !== formData.password ? 'Passwords do not match' : ''
     };
     
     setErrors(validationErrors);
     
-    if (!validationErrors.email && !validationErrors.password) {
+    if (!validationErrors.username && !validationErrors.email && 
+        !validationErrors.password && !validationErrors.confirmPassword) {
       navigate('/dashboard');
     }
   };
 
   return (
-    <div className="login-container" style={styles.container}>
+    <div className="signup-container" style={styles.container}>
       <div style={styles.header}>
         <img src={logo} alt="ShieldX Logo" style={styles.logo} />
         <h1 style={styles.title}>ShieldX</h1>
@@ -72,22 +91,25 @@ export default function Login() {
       
       <form onSubmit={handleSubmit} style={styles.form}>
         <h2 style={{color: '#333', textAlign: 'center', marginBottom: '20px'}}>
-          {isLogin ? 'Login' : 'Sign Up'}
+          Create Account
         </h2>
 
-        {!isLogin && (
-          <div style={styles.inputGroup}>
-            <label htmlFor="username" style={styles.label}>Username</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              value={formData.username || ''}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </div>
-        )}
+        <div style={styles.inputGroup}>
+          <label htmlFor="username" style={styles.label}>Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            value={formData.username}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={{
+              ...styles.input,
+              borderColor: errors.username ? '#ff4444' : '#ddd'
+            }}
+          />
+          {errors.username && <span style={styles.error}>{errors.username}</span>}
+        </div>
 
         <div style={styles.inputGroup}>
           <label htmlFor="email" style={styles.label}>Email</label>
@@ -123,36 +145,47 @@ export default function Login() {
           {errors.password && <span style={styles.error}>{errors.password}</span>}
         </div>
 
-        {!isLogin && (
-          <div style={styles.inputGroup}>
-            <label htmlFor="confirmPassword" style={styles.label}>Confirm Password</label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={formData.confirmPassword || ''}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </div>
-        )}
+        <div style={styles.inputGroup}>
+          <label htmlFor="confirmPassword" style={styles.label}>Confirm Password</label>
+          <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            style={{
+              ...styles.input,
+              borderColor: errors.confirmPassword ? '#ff4444' : '#ddd'
+            }}
+          />
+          {errors.confirmPassword && <span style={styles.error}>{errors.confirmPassword}</span>}
+        </div>
 
         <Button 
           type="submit" 
           style={{
             ...styles.button,
-            opacity: (!formData.email || !formData.password || errors.email || errors.password) ? 0.7 : 1,
-            cursor: (!formData.email || !formData.password || errors.email || errors.password) ? 'not-allowed' : 'pointer'
+            opacity: (!formData.username || !formData.email || !formData.password || !formData.confirmPassword || 
+                     errors.username || errors.email || errors.password || errors.confirmPassword) ? 0.7 : 1,
+            cursor: (!formData.username || !formData.email || !formData.password || !formData.confirmPassword || 
+                    errors.username || errors.email || errors.password || errors.confirmPassword) ? 'not-allowed' : 'pointer'
           }}
         >
-          {isLogin ? 'Login' : 'Sign Up'}
+          Sign Up
         </Button>
 
+        <div style={{textAlign: 'center', margin: '15px 0', color: '#666'}}>
+          or sign up with
+        </div>
+
+        <SocialLogin />
+
         <p style={{textAlign: 'center', marginTop: '15px', color: '#666'}}>
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
+          Already have an account?
           <button 
             type="button"
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => navigate('/login')}
             style={{
               background: 'none',
               border: 'none',
@@ -161,7 +194,7 @@ export default function Login() {
               marginLeft: '5px'
             }}
           >
-            {isLogin ? 'Sign up' : 'Login'}
+            Login
           </button>
         </p>
       </form>
@@ -169,6 +202,7 @@ export default function Login() {
   );
 }
 
+// Reuse the same styles object from Login.jsx
 const styles = {
   container: {
     backgroundColor: '#1a73e8',

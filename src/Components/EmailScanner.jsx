@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Button from './Button';
 import './Dashboard.css';
 
@@ -26,7 +25,7 @@ function EmailScanner() {
   };
   
   return (
-    <div className="scanner-input input">
+    <div className="scanner-container">
       
       <h2>Email Scanner</h2>
       <textarea
@@ -34,9 +33,9 @@ function EmailScanner() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Paste email content"
       />
-      <button onClick={analyzeEmail} disabled={loading}>
+      <Button onClick={analyzeEmail} disabled={loading}>
         {loading ? 'Analyzing...' : 'Scan'}
-      </button>
+      </Button>
       {result && (
         <div className={`result ${result.isSafe ? 'safe' : 'danger'}`}>
           <h3>Result (100% Accuracy)</h3>

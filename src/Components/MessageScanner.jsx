@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Button from './Button';
 import './Dashboard.css';
 
@@ -34,9 +33,9 @@ function MessageScanner() {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Enter message"
       />
-      <button onClick={analyzeMessage} disabled={loading}>
+      <Button onClick={analyzeMessage} disabled={loading}>
         {loading ? 'Analyzing...' : 'Scan'}
-      </button>
+      </Button>
       {result && (
         <div className={`result ${result.isSafe ? 'safe' : 'danger'}`}>
           <h3>Result (100% Accuracy)</h3>

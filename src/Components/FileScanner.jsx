@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Button from './Button';
 import './Dashboard.css';
 
@@ -35,9 +34,9 @@ function FileScanner() {
         type="file"
         onChange={(e) => setFile(e.target.files[0])}
       />
-      <button onClick={analyzeFile} disabled={!file || loading}>
+      <Button onClick={analyzeFile} disabled={!file || loading}>
         {loading ? 'Analyzing...' : 'Scan'}
-      </button>
+      </Button>
       {result && (
         <div className={`result ${result.isSafe ? 'safe' : 'danger'}`}>
           <h3>Result (100% Accuracy)</h3>
